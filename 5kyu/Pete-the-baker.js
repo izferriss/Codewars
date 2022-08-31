@@ -35,8 +35,6 @@ function cakes(recipe, available)
                     remainder = temp;
                 }
             }
-            console.log(cake_ingred.get(key));
-            console.log(cake_recipe.get(key));
         }
         else
         {
