@@ -127,12 +127,10 @@ void SnakesLadders::movePlayer(int player, int roll)
         if(getPos(player) + roll > 100)
         {
             setPos(player, checkLanding(100 - (roll - (100-getPos(player)))));
-            //setPos(player, checkLanding(getPos(player)));
         }
         else
         {
             setPos(player, checkLanding(getPos(player) + roll));
-            //setPos(player, checkLanding(getPos(player)));
         }
     }
 }
