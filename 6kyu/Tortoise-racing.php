@@ -27,6 +27,8 @@ Tortoises don't care about fractions of seconds
 Think of calculation by hand using only integers (in your code use or simulate integer division)
 or Google: "convert decimal time to hours minutes seconds"
 -->
+//So that github's linguistics tool can determine PHP from hacklang
+<?php ?>
 
 function race($v1, $v2, $g)
 {
