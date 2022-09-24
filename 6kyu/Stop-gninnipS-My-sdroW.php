@@ -9,7 +9,8 @@ spinWords( "Hey fellow warriors" ) => returns "Hey wollef sroirraw"
 spinWords( "This is a test") => returns "This is a test" 
 spinWords( "This is another test" )=> returns "This is rehtona test"
 -->
-
+//So that github's linguistics tool can determine PHP from hacklang
+<?php ?>
 function spinWords(string $str): string
 {
     $arr = explode(" ", $str);
