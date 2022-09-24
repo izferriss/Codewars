@@ -11,6 +11,8 @@ Allowed characters are uppercase / lowercase latin letters and digits from 0 to 
 No whitespaces / underscore
 
 -->
+//So that github's linguistics tool can determine PHP from hacklang
+<?php ?>
 
 function alphanumeric(string $s): bool
 {
