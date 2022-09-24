@@ -27,6 +27,8 @@ nb_year(1500000, 2.5, 10000, 2000000) -> 10
 Note:
 Don't forget to convert the percent parameter as a percentage in the body of your function: if the parameter percent is 2 you have to convert it to 0.02.
 -->
+//So that github's linguistics tool can determine PHP from hacklang
+<?php ?>
 
 function nbYear($p0, $percent, $aug, $p)
 {
