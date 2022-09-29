@@ -8,7 +8,7 @@
 # ""             =>  ""
 
 def solution(s):
-    index = 0;
+    index = 0
     for val in s:
         if(s[index].isupper()):
             s = s[:index] + " " + s[index:]
