@@ -11,6 +11,8 @@ Allowed characters are uppercase / lowercase latin letters and digits from 0 to 
 No whitespaces / underscore
 
 -->
+//The following line is for github's linguistics parser
+<?php ?>
 
 function alphanumeric(string $s): bool
 {
