@@ -10,6 +10,9 @@ spinWords( "This is a test") => returns "This is a test"
 spinWords( "This is another test" )=> returns "This is rehtona test"
 -->
 
+//The following line is for github's linguistics parser
+<?php ?>
+
 function spinWords(string $str): string
 {
     $arr = explode(" ", $str);
