@@ -45,109 +45,94 @@
 
 function isInteresting(number, awesomePhrases) 
 {
-   if(number > 99 && (isDigitFollowedByZeros(number) || isEveryDigitTheSame(number) || isIncremental(number) || isDecremental(number) || isPalindrome(number) || isInPhrasesArray(number, awesomePhrases)))
-   {
-        console.log(number + " is interesting!\n\n");
-        return 2;
-   }
-   else if(number > 99 && (isDigitFollowedByZeros(number + 1) || isEveryDigitTheSame(number + 1) || isIncremental(number + 1) || isDecremental(number + 1) || isPalindrome(number + 1) || isInPhrasesArray(number + 1, awesomePhrases)))
-   {
-        console.log((number + 1) + " will be interesting!\n\n");
-        return 1;
-   }
-   else if(number > 999 && (isDigitFollowedByZeros(number + 2) || isEveryDigitTheSame(number + 2) || isIncremental(number + 2) || isDecremental(number + 2) || isPalindrome(number + 2) || isInPhrasesArray(number + 2, awesomePhrases)))
-   {
-        console.log((number + 2) + " will be interesting!\n\n");
-        return 1;
-   }
-   else
-   {
-        console.log(number + " will NOT be interesting!\n\n");
-        return 0;
-   }
+    if(number > 99 && (isDigitFollowedByZeros(number) || isEveryDigitTheSame(number) || isIncremental(number) || isDecremental(number) || isPalindrome(number) || isInPhrasesArray(number, awesomePhrases)))
+    {
+            console.log(number + " is interesting!\n\n");
+            return 2;
+    }
+    else if((number + 1) > 99 && (isDigitFollowedByZeros(number + 1) || isEveryDigitTheSame(number + 1) || isIncremental(number + 1) || isDecremental(number + 1) || isPalindrome(number + 1) || isInPhrasesArray(number + 1, awesomePhrases)))
+    {
+            console.log((number + 1) + " will be interesting!\n\n");
+            return 1;
+    }
+    else if((number + 2) > 99 && (isDigitFollowedByZeros(number + 2) || isEveryDigitTheSame(number + 2) || isIncremental(number + 2) || isDecremental(number + 2) || isPalindrome(number + 2) || isInPhrasesArray(number + 2, awesomePhrases)))
+    {
+            console.log((number + 2) + " will be interesting!\n\n");
+            return 1;
+    }
+    else
+    {
+            console.log(number + ", " + (number + 1) + ", " + (number + 2) + " are all NOT interesting!\n\n");
+            return 0;
+    }
 }
 
-function isDigitFollowedByZeros(number)
+function isDigitFollowedByZeros(num)
 {
-    let numAsString = number.toString();
+    let numAsString = num.toString();
     for(var i = 1; i < numAsString.length; i++)
     {
         if(numAsString[i] != 0)
         {
+            console.log(num + " is a digit followed by all zeros: FALSE");
             return false;
         }
     }
-
+    console.log(num + " is a digit followed by all zeros: TRUE");
     return true;
 }
 
-function isEveryDigitTheSame(number)
+function isEveryDigitTheSame(num)
 {
-    let numAsString = number.toString();
+    let numAsString = num.toString();
     for(var i = 1; i < numAsString.length; i++)
     {
-        if(numAsString[i - 1] != numAsString[i])
+        if(parseInt(numAsString[i - 1]) != parseInt(numAsString[i]))
         {
-            console.log("Each digit are NOT the same as the others.");
+            console.log(num + " has monotonic digits: FALSE");
             return false;
         }
     }
-    console.log("Each digit are the same as the others!");
+    console.log(num + " has monotonic digits: TRUE");
     return true;
 }
 
-//FIX THIS FOR ZEROS
-function isIncremental(number)
+function isIncremental(num)
 {
-    let numAsString = number.toString();
-    for(var i = 1; i < numAsString.length; i++)
-    {
-        if(parseInt(numAsString[i - 1]) + 1 != parseInt(numAsString[i]))
-        {
-            console.log("This number is NOT incremental.");
-            return false;
-        }
-    }
-    console.log("This number is incremental!");
-    return true;
+    let numAsString = num.toString();
+    let permissable = "1234567890";
+    console.log(num + " has sequentially incrementing digits: " + permissable.includes(numAsString));
+    return permissable.includes(numAsString);
 }
 
-//FIX THIS FOR ZEROS
-function isDecremental(number)
+function isDecremental(num)
 {
-    let numAsString = number.toString();
-    for(var i = 1; i < numAsString.length; i++)
-    {
-        if(parseInt(numAsString[i - 1]) - 1 != parseInt(numAsString[i]))
-        {
-            console.log("This number is NOT decremental.");
-            return false;
-        }
-    }
-    console.log("This number is decremental!");
-    return true;
+    let numAsString = num.toString();
+    let permissable = "9876543210";
+    console.log(num + " has sequentially decrementing digits: " + permissable.includes(numAsString));
+    return permissable.includes(numAsString);
 }
 
-function isPalindrome(number)
+function isPalindrome(num)
 {
-    let numAsString = number.toString();
+    let numAsString = num.toString();
     let numLen = numAsString.length;
 
     for(var i = 0; i < numLen / 2; i++)
     {
         if(numAsString[i] !== numAsString[numLen - 1 - i])
         {
-            console.log("This number is not a palindrome.");
+            console.log(num + " is palindromic: FALSE");
             return false;
         }
     }
 
-    console.log("This number is a palindrome!");
+    console.log(num + " is palindromic: TRUE");
     return true;
 }
 
-function isInPhrasesArray(number, awesomePhrases)
+function isInPhrasesArray(num, awesomePhrases)
 {
-    console.log(number + " in awesomePhrases: " + awesomePhrases.includes(number));
-    return awesomePhrases.includes(number);
+    console.log(num + " is in awesomePhrases[]: " + awesomePhrases.includes(num) + "\n");
+    return awesomePhrases.includes(num);
 }
