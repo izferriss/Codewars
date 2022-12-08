@@ -69,9 +69,16 @@ function isInteresting(number, awesomePhrases)
 
 function isDigitFollowedByZeros(number)
 {
-    //FIX THIS TO CHECK IF ONLY FIRST NUMBER IS A DIGIT
-    console.log("is digit followed by zeros: " + (number % 10 == 0 || number % 100 == 0 || number % 1000 == 0 || number % 10000 == 0 || number % 100000 == 0));
-    return number % 10 == 0 || number % 100 == 0 || number % 1000 == 0 || number % 10000 == 0 || number % 100000 == 0;
+    let numAsString = number.toString();
+    for(var i = 1; i < numAsString.length; i++)
+    {
+        if(numAsString[i] != 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 function isEveryDigitTheSame(number)
@@ -89,6 +96,7 @@ function isEveryDigitTheSame(number)
     return true;
 }
 
+//FIX THIS FOR ZEROS
 function isIncremental(number)
 {
     let numAsString = number.toString();
@@ -104,6 +112,7 @@ function isIncremental(number)
     return true;
 }
 
+//FIX THIS FOR ZEROS
 function isDecremental(number)
 {
     let numAsString = number.toString();
