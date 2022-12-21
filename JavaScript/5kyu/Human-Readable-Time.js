@@ -11,9 +11,10 @@
 
 function humanReadable (seconds)
 {
-    let hrs = (seconds / 3600).toString().substring(0, (seconds / 3600).toString().indexOf("."));
-    let min = seconds % 3600;
-    let sec = (seconds / 3600) % 60;
-
-    return hrs.padStart(2, '0')+":"+min.padStart(2, '0')+":"+sec.padStart(2, '0');
+    hr = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    min = Math.floor(seconds / 60);
+    sec = seconds % 60;
+  
+    return hr.toString().padStart(2, '0') + ":" + min.toString().padStart(2, '0') + ":" + sec.toString().padStart(2, '0');
 }
