@@ -1,4 +1,6 @@
 /* THIS IS CURRENTLY NOT SUBMITTED ON CODEWARS AS A VALID SOLUTION */
+// TIMES OUT AT 19 DIGITS LENGTH
+
 // https://www.codewars.com/kata/59f98052120be4abfa000304
 
 // Welcome to the Challenge Edition of Upside-Down Numbers
@@ -29,16 +31,16 @@
 
 function upsideDown(x,y)
 {
-  let results = [];
+  console.log(x + " " + y);
   let count = 0;
   
   //Create array with all strobos of length n
   for(var i = x.toString().length; i <= y.toString().length; i++)
     {
-      results.push(createStrobos(i, i));
+      console.log(i);
+      count += createStrobos(i, i).filter((n)=> n >= parseInt(x) && n <= parseInt(y)).length;
     }
-  results = [].concat(...results);
-  return results.filter((n)=> n >= parseInt(x) && n <= parseInt(y)).length;
+  return count;
 }
 
 function createStrobos(num, length)
