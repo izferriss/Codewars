@@ -29,26 +29,20 @@
 
 function upsideDown(x,y)
 {
-    var x_len = x.length;
-    var y_len = y.length;
-    var count = 0;
-    while(x_len <= y_len)
+  let results = [];
+  let count = 0;
+  
+  //Create array with all strobos of length n
+  for(var i = x.toString().length; i <= y.toString().length; i++)
     {
-        var numStrobo = strobogrammaticGenerator(x_len);
-        count += countInRange(numStrobo, +x, +y);
-        x_len++;
+      results.push(createStrobos(i, i));
     }
-
-    return count;
+  results = [].concat(...results);
+  return results.filter((n)=> n >= parseInt(x) && n <= parseInt(y)).length;
 }
 
-function strobogrammaticGenerator(numDigits)
-{
-    return createStrobos(numDigits, numDigits);
-}
- 
 function createStrobos(num, length)
-{     
+{   
     if (num == 0)
     {
         return [""];
@@ -58,7 +52,7 @@ function createStrobos(num, length)
         return ["1", "0", "8"];
     }
        
-    var middles = createStrobos(num - 2, length);
+    var middles = createStrobos(num - 2);
     var result = [];
        
     for (var middle of middles)
@@ -73,17 +67,4 @@ function createStrobos(num, length)
         result.push("6" + middle + "9");
     }
     return result;
-}
-  
-function countInRange(arr, start, finish)
-{
-    var count = 0;
-    for (let i = 0; i < arr.length; i++)
-    {
-        if (arr[i] >= start && arr[i] <= finish)
-            {
-                count++;
-            }     
-    }
-    return count;
 }
