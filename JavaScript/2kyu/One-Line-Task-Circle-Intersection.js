@@ -1,6 +1,3 @@
-/* THIS IS CURRENTLY NOT SUBMITTED ON CODEWARS AS A VALID SOLUTION */
-/* 9 too many characters -____- */
-
 // https://www.codewars.com/kata/5908242330e4f567e90000a3
 
 // Task
@@ -16,4 +13,4 @@
 
 // the output should be 14.
 
-with(Math)circleIntersection=([a,b],[c,d],r,e=hypot(a-c,b-d),x=acos(e/(2*r)))=>~~(r**2*(2*x-sin(2*x)));
+with(Math)circleIntersection=([a,b],[c,d],r,x=2*acos(hypot(a-c,b-d)/r/2))=>~~(r*r*(x-sin(x)))
