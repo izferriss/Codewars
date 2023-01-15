@@ -1,5 +1,5 @@
 /* THIS IS CURRENTLY NOT SUBMITTED ON CODEWARS AS A VALID SOLUTION */
-/* 30 too many characters */
+/* 9 too many characters -____- */
 
 // https://www.codewars.com/kata/5908242330e4f567e90000a3
 
@@ -16,4 +16,4 @@
 
 // the output should be 14.
 
-with(Math)circleIntersection=([a,b],[c,d],r,e=hypot(a-c,b-d),x=acos(e/(2*r)))=>(e==0)?~~(3.14*r**2):~~(r**2*(2*x-sin(2*x)));
+with(Math)circleIntersection=([a,b],[c,d],r,e=hypot(a-c,b-d),x=acos(e/(2*r)))=>~~(r**2*(2*x-sin(2*x)));
