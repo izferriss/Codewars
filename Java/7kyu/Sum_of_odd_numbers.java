@@ -15,7 +15,7 @@
 
 import java.lang.Math;
 
-class RowSumOddNumbers 
+class RowSumOddNumbers
 {
     public static int rowSumOddNumbers(int n) 
     {
