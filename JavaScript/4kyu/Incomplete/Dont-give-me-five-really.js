@@ -14,8 +14,45 @@
 
 // Good luck, warrior!
 
-function dontGiveMeFive(start, end)
-{
-  let arr = Array(end - start + 1).fill().map((item, index) => start + index).filter(num => num.toString().includes('5'));
-  return end - start - arr.length + 1;
+function dontGiveMeFive(start, finish) {
+  function countInRange(n) {
+    const absN = Math.abs(n);
+    const s = String(absN);
+    const len = s.length;
+    let ans = 0;
+
+    for (let i = 1; i < len; i++) {
+        ans += 9 ** (i - 1) * 8;
+    }
+
+    for (let i = 0; i < len; i++) {
+        const digit = parseInt(s[i]);
+        for (let j = (i === 0 ? 1 : 0); j < digit; j++) { // Correct start of inner loop
+            if (j !== 5) {
+                ans += 9 ** (len - i - 1);
+            }
+        }
+        if (digit === 5) {
+            break;
+        }
+        if (i === len - 1 && digit !== 5) {
+            ans++;
+        }
+    }
+
+    return n >= 0 ? ans : (9 ** len - ans - 1); 
+}
+
+if (start > finish) return 0;
+
+let result = 0;
+if (start <= 0 && finish >= 0) {
+    result = countInRange(finish) + countInRange(-start) + 1;  // Add 1 for zero
+} else if (start >= 0) {
+    result = countInRange(finish) - countInRange(start - 1);
+} else {
+    result = countInRange(-start) - countInRange(-finish - 1);
+}
+
+return result;
 }
