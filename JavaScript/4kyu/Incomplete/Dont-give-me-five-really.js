@@ -15,44 +15,47 @@
 // Good luck, warrior!
 
 function dontGiveMeFive(start, finish) {
-  function countInRange(n) {
-    const absN = Math.abs(n);
-    const s = String(absN);
-    const len = s.length;
-    let ans = 0;
-
-    for (let i = 1; i < len; i++) {
-        ans += 9 ** (i - 1) * 8;
+  // Check if a number contains the digit 5
+  function isValid(num) {
+    return !num.toString().includes('5');
+  }
+  // Count how many integers between 0 and n (inclusive) don't contain 5
+  function countValidUpTo(n) {
+    if (n < 0) return 0; // handle negatives outside
+    const digits = n.toString().split('').map(Number);
+    const memo = new Map();
+    function dp(pos, tight, leadingZero) {
+      if (pos === digits.length) return leadingZero ? 0 : 1;
+      const key = `${pos}-${tight}-${leadingZero}`;
+      if (memo.has(key)) return memo.get(key);
+      let total = 0;
+      const limit = tight ? digits[pos] : 9;
+      for (let d = 0; d <= limit; d++) {
+        if (d === 5) continue; // Skip if the digit is 5
+        const newTight = tight && d === limit;
+        const newLeadingZero = leadingZero && d === 0;
+        total += dp(pos + 1, newTight, newLeadingZero);
+      }
+      memo.set(key, total);
+      return total;
     }
-
-    for (let i = 0; i < len; i++) {
-        const digit = parseInt(s[i]);
-        for (let j = (i === 0 ? 1 : 0); j < digit; j++) { // Correct start of inner loop
-            if (j !== 5) {
-                ans += 9 ** (len - i - 1);
-            }
-        }
-        if (digit === 5) {
-            break;
-        }
-        if (i === len - 1 && digit !== 5) {
-            ans++;
-        }
-    }
-
-    return n >= 0 ? ans : (9 ** len - ans - 1); 
-}
-
-if (start > finish) return 0;
-
-let result = 0;
-if (start <= 0 && finish >= 0) {
-    result = countInRange(finish) + countInRange(-start) + 1;  // Add 1 for zero
-} else if (start >= 0) {
-    result = countInRange(finish) - countInRange(start - 1);
-} else {
-    result = countInRange(-start) - countInRange(-finish - 1);
-}
-
-return result;
-}
+    return dp(0, true, true);
+  }
+  // General range count, regardless of sign
+  function countInRange(a, b) {
+    if (a > b) return 0;
+    return countValidUpTo(b) - countValidUpTo(a - 1);
+  }
+  if (start >= 0) {
+    // Include the finish boundary, and also check if the finish is valid
+    return countInRange(start, finish) + (isValid(finish) ? 1 : 0);
+  } else if (finish < 0) {
+    // Handle the range where both numbers are negative
+    return countInRange(-finish, -start) + (isValid(start) ? 1 : 0);
+  } else {
+    // Crosses zero
+    const negatives = countInRange(1, -start);   // -start to -1
+    const positives = countInRange(0, finish);   // 0 to finish
+    return negatives + positives + (isValid(0) ? 1 : 0);
+  }
+ }
