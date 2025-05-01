@@ -1,0 +1,7 @@
+// https://www.codewars.com/kata/57a04da9e298a7ee43000111/train/javascript
+
+// Write reverseList function that simply reverses lists.
+
+function reverseList(arr) {
+	return arr.reverse();
+}
