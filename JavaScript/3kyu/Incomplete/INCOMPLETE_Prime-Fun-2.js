@@ -34,136 +34,45 @@
 
 // primeCombination([2]) === [2]
 
-var permArr = [];
-var usedChars = [];
+function primeCombination(nums) {
+	let smallestPrime = Infinity;
+	let largestPrime = -Infinity;
 
-function primeCombination(nums)
-{
-    //short circuit
-    if(nums.length == 0 || nums.length == 1)
-    {
-        if(nums.length == 0)
-        {
-            return [];
-        }
-        else
-        {
-            if(isPrime(nums[0]))
-            {
-                return [nums[0]];
-            }
-        }
-    }
+	function isPrime(num) {
+		if (num <= 1) return false;
+		for (let i = 2; i <= Math.sqrt(num); i++) {
+			if (num % i === 0) return false;
+		}
+		return true;
+	}
 
-    var results = filterPrimes(permute(nums));
-    resetGlobals();
-    console.log("globals reset");
-    var min, max;
+	function generatePermutations(arr, currentPermutation) {
+		if (arr.length === 0) {
+			const num = parseInt(currentPermutation.join(""));
+			if (isPrime(num)) {
+				smallestPrime = Math.min(smallestPrime, num);
+				largestPrime = Math.max(largestPrime, num);
+			}
+			return;
+		}
 
-    if(results.length == 0)
-    {
-        return [];
-    }
-    else if(results.length == 1)
-    {
-        return [+asString(results[0])];
-    }
-    else
-    {
-        min = +asString(results[Math.floor((results.length - 1) / 2)]);
-        max = +asString(results[Math.floor((results.length - 1) / 2) + 1]);
-    }
+		for (let i = 0; i < arr.length; i++) {
+			const nextNum = arr[i];
+			const remainingNums = arr.slice(0, i).concat(arr.slice(i + 1));
+			generatePermutations(
+				remainingNums,
+				currentPermutation.concat(nextNum)
+			);
+		}
+	}
 
-    for(var i = 0; i < results.length; i++)
-    {
-        if(isPrime(+asString(results[i])))
-        {
-            if(+asString(results[i]) > max)
-            {
-                max = +asString(results[i]);
-            }
-            if(+asString(results[i]) < min)
-            {
-                min = +asString(results[i]);
-            }
-        }
-    }
-    if(isPrime(min) && isPrime(max))
-    {
-        return [min, max];
-    }
-    else if(isPrime(min) && !isPrime(max))
-    {
-        return [min];
-    }
-    else if(!isPrime(min) && isPrime(max))
-    {
-        return [max];
-    }
-    else
-    {
-        return [];
-    }  
-}
+	generatePermutations(nums, []);
 
-function permute(input) 
-{
-    for (var i = 0; i < input.length; i++)
-    {
-        var ch = input.splice(i, 1)[0];
-        usedChars.push(ch);
-        if (input.length == 0)
-        {
-            permArr.push(usedChars.slice());
-        }
-        permute(input);
-        input.splice(i, 0, ch);
-        usedChars.pop();
-    }
-    return permArr
-};
-
-function filterPrimes(arr)
-{
-    arr.forEach(sub =>
-    {
-        if(!isPrime(+asString(sub)))
-        {
-            arr = arr.filter(item => item !== sub);
-        }
-    });
-    console.log("filtration complete");
-    return arr;
-}
-
-function isPrime(num)
-{
-    if (num == 1)
-    {
-        return false;
-    }
-    for (var i = 2; i <= Math.sqrt(num); i++)
-    {
-        if (num % i == 0)
-        {
-            return false;
-        }      
-    }
-    return true;
-}
-
-function asString(arr)
-{
-    var output = "";
-    for(var i = 0; i < arr.length; i++)
-    {
-        output += arr[i];
-    }
-    return output;
-}
-
-function resetGlobals()
-{
-    permArr = [];
-    usedChars = [];
+	if (smallestPrime === Infinity && largestPrime === -Infinity) {
+		return [];
+	} else {
+		return smallestPrime === largestPrime
+			? [smallestPrime]
+			: [smallestPrime, largestPrime];
+	}
 }
